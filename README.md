@@ -1,24 +1,33 @@
 # Midterm Demo: IntelliJ → GitHub → Maven/JUnit → Jenkins → Docker
 
-A minimal Spring Boot 3 app to demonstrate a full workflow:
-- Code in **IntelliJ**
-- Version control in **GitHub**
-- Build & test with **Maven + JUnit**
-- CI pipeline in **Jenkins** (build, test, Docker build, smoke test)
-- Deploy with **Docker**
+A minimal Spring Boot 3 app demonstrating a full CI/CD workflow.
 
-## Run locally (no Docker)
+## 🚀 Live Demo
+👉 https://springboot-ci-cd-pipeline-production.up.railway.app/hello
+
+## Tech Stack
+- Java 17 / Spring Boot 3
+- Maven + JUnit (build & test)
+- Jenkins (CI pipeline)
+- Docker (containerization)
+- Railway (cloud deployment)
+
+## Pipeline Stages
+1. Checkout code from GitHub
+2. Build & test with `mvn verify`
+3. Docker image build
+4. Smoke test (`curl /hello`)
+5. Deploy to Railway
+
+## Run Locally
+```bash
 mvn clean verify
 mvn spring-boot:run
-# http://localhost:8080/hello
+```
+Then visit: http://localhost:8080/hello
 
-## Build & run in Docker
+## Run with Docker
+```bash
 docker build -t midterm-demo .
-docker run -d --name midterm-demo -p 8080:8080 midterm-demo:ci
-curl -s http://localhost:8080/hello
-docker rm -f midterm-demo
-
-## Jenkins pipeline
-- Job: *Pipeline script from SCM* pointing to this repo
-- Tools: JDK 17 (`jdk17`), Maven (`maven3`)
-- Pipeline stages: checkout → mvn verify → docker build → smoke test (`curl /hello`)
+docker run -d --name midterm-demo -p 8080:8080 midterm-demo
+```
